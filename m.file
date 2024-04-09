@@ -1,0 +1,32 @@
+% Sampling frequency
+fs = 44100;
+
+% Time vector
+t = 0:1/fs:2;
+
+% Original signal
+x = sin(2*pi*1000*t);
+
+% Delay parameters
+delayTime = 0.5; % in seconds
+gain = 0.8; % Echo gain
+
+% Create delayed signal
+delaySamples = round(delayTime * fs);
+delayedSignal = [zeros(1, delaySamples) x(1:end-delaySamples)];
+
+% Add echo to original signal
+echoedSignal = x + gain * delayedSignal;
+
+% Plot original and echoed signals
+subplot(2,1,1);
+plot(t, x);
+title('Original Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+subplot(2,1,2);
+plot(t, echoedSignal);
+title('Echoed Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
